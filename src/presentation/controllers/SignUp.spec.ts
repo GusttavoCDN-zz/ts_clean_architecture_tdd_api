@@ -1,10 +1,11 @@
-import { IEmailValidator } from '../contracts/IEmailValidator';
+import { IEmailValidator } from '../contracts';
 import { InvalidParamError, MissingParamError, ServerError } from '../errors';
 import { SignUpController } from './SignUp';
-
+import { IAddAccount } from '../../domain/useCases/addAccount';
 interface ISut {
   sut: SignUpController
   emailValidatorStub: jest.Mocked<IEmailValidator>
+  addAccountStub: jest.Mocked<IAddAccount>
 }
 
 const makeSut = (): ISut => {
@@ -12,8 +13,17 @@ const makeSut = (): ISut => {
     isValid: jest.fn().mockReturnValue(true)
   };
 
-  const sut = new SignUpController(emailValidatorStub);
-  return { sut, emailValidatorStub };
+  const addAccountStub: jest.Mocked<IAddAccount> = {
+    add: jest.fn().mockReturnValue({
+      id: 'valid_id',
+      name: 'valid_name',
+      email: 'valid_email',
+      password: 'valid_password'
+    })
+  };
+
+  const sut = new SignUpController(emailValidatorStub, addAccountStub);
+  return { sut, emailValidatorStub, addAccountStub };
 };
 
 describe('SignUp Controller', () => {
@@ -154,5 +164,24 @@ describe('SignUp Controller', () => {
     const httpResponse = sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(500);
     expect(httpResponse.body).toEqual(new ServerError());
+  });
+
+  it('Should call AddAccount with correct values', () => {
+    const { sut, addAccountStub } = makeSut();
+
+    const addSpy = jest.spyOn(addAccountStub, 'add');
+
+    const accountInfo = {
+      name: 'any_name',
+      email: 'any_email@gmail.com',
+      password: 'any_password'
+    };
+
+    const httpRequest = {
+      body: { ...accountInfo, passwordConfirmation: 'any_password' }
+    };
+
+    sut.handle(httpRequest);
+    expect(addSpy).toHaveBeenCalledWith(accountInfo);
   });
 });
