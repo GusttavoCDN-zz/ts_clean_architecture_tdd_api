@@ -66,4 +66,21 @@ describe('SignUp Controller', () => {
     expect(httpResponse.statusCode).toBe(400);
     expect(httpResponse.body).toEqual(new MissingParamError('passwordConfirmation'));
   });
+
+  // it('Should return 400 if email provided is invalid', () => {
+  //   const sut = new SignUpController();
+
+  //   const httpRequest = {
+  //     body: {
+  //       name: 'any_name',
+  //       email: 'invalid_email@gmail.com',
+  //       password: 'any_password',
+  //       passwordConfirmation: 'any_password'
+  //     }
+  //   };
+
+  //   const httpResponse = sut.handle(httpRequest);
+  //   expect(httpResponse.statusCode).toBe(400);
+  //   expect(httpResponse.body).toEqual(new InvalidParamError('email'));
+  // });
 });

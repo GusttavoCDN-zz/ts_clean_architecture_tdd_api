@@ -1,4 +1,4 @@
-import { IHttpResponse } from '../contracts/http.contract';
+import { IHttpResponse } from '../contracts/IHttp';
 import { MissingParamError } from '../errors';
 
 export const badRequest = (error: MissingParamError): IHttpResponse => ({

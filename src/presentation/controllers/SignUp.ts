@@ -1,8 +1,15 @@
-import { IHttpRequest, IHttpResponse } from '../contracts/http.contract';
+import { IController } from '../contracts/IController';
+import { IHttpRequest, IHttpResponse } from '../contracts/IHttp';
 import { MissingParamError } from '../errors';
 import { badRequest } from '../helpers/badRquest';
 
-export class SignUpController {
+export class SignUpController implements IController {
+  // private readonly _emailValidator: IEmailValidator;
+
+  // constructor(emailValidator: IEmailValidator) {
+  //   this._emailValidator = emailValidator;
+  // }
+
   public handle(httpRequest: IHttpRequest): IHttpResponse {
     const requiredFields = ['name', 'email', 'password', 'passwordConfirmation'];
 
