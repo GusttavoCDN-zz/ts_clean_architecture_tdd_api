@@ -14,7 +14,7 @@
   "scripts": {
     "prepare": "husky install",
     "c": "git add . --all && yarn cz",
-    "test": "jest --watch",
+    "test": "jest --watchAll",
     "test:staged": "jest --passWithNoTests"
   },
   "devDependencies": {
