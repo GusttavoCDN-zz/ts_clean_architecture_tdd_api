@@ -4,7 +4,14 @@
   "main": "index.js",
   "author": "Gustavo Silva <gusttavo.x.santos@gmail.com>",
   "license": "MIT",
+  "lint-staged": {
+    "*.ts": [
+      "eslint 'src/**' --fix",
+      "git add"
+    ]
+  },
   "scripts": {
+    "prepare": "husky install",
     "c": "git add . --all && yarn cz"
   },
   "devDependencies": {
@@ -18,6 +25,8 @@
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "git-commit-msg-linter": "^4.2.1",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "typescript": "*"
   },
   "config": {
