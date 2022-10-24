@@ -1,5 +1,7 @@
+import { IHttpRequest, IHttpResponse } from '../contracts/http.contract';
+
 export class SignUpController {
-  public handle(httpRequest: any): any {
+  public handle(httpRequest: IHttpRequest): IHttpResponse {
     if (!httpRequest.body.name) {
       return {
         statusCode: 400,
@@ -7,11 +9,9 @@ export class SignUpController {
       };
     }
 
-    if (!httpRequest.body.email) {
-      return {
-        statusCode: 400,
-        body: new Error('Missing param: email')
-      };
-    }
+    return {
+      statusCode: 400,
+      body: new Error('Missing param: email')
+    };
   }
 }
