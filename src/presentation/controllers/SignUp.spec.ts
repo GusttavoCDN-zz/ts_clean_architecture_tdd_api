@@ -1,5 +1,5 @@
 import { IEmailValidator } from '../contracts/IEmailValidator';
-import { InvalidParamError, MissingParamError } from '../errors';
+import { InvalidParamError, MissingParamError, ServerError } from '../errors';
 import { SignUpController } from './SignUp';
 
 interface ISut {
@@ -116,5 +116,26 @@ describe('SignUp Controller', () => {
 
     sut.handle(httpRequest);
     expect(isValid).toHaveBeenCalledWith(httpRequest.body.email);
+  });
+
+  it('Should return 500 if EmailValidator throws an error', () => {
+    const { sut, emailValidatorStub } = makeSut();
+
+    jest.spyOn(emailValidatorStub, 'isValid').mockImplementationOnce(() => {
+      throw new ServerError();
+    });
+
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@gmail.com',
+        password: 'any_password',
+        passwordConfirmation: 'any_password'
+      }
+    };
+
+    const httpResponse = sut.handle(httpRequest);
+    expect(httpResponse.statusCode).toBe(500);
+    expect(httpResponse.body).toEqual(new ServerError());
   });
 });
