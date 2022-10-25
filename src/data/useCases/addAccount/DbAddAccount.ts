@@ -1,12 +1,25 @@
-import { IAddAccount, IEncrypter, IAddAccountDTO, IAccount } from './db-add-account.contracts';
+import {
+  IAddAccount,
+  IEncrypter,
+  IAddAccountDTO,
+  IAccount,
+  IAddAccountRepository
+} from './db-add-account.contracts';
 
 export class DbAddAccount implements IAddAccount {
-  constructor(private readonly _encrypter: IEncrypter) {}
+  constructor(
+    private readonly _encrypter: IEncrypter,
+    private readonly _addAccountRepository: IAddAccountRepository
+  ) {}
 
   public async add(account: IAddAccountDTO): Promise<IAccount> {
     const hashedPassword = await this._encrypter.encrypt(account.password);
-    console.log(hashedPassword);
 
-    return { id: '', email: '', name: '', password: '' };
+    const newAccount = await this._addAccountRepository.add({
+      ...account,
+      password: hashedPassword
+    });
+
+    return newAccount;
   }
 }
