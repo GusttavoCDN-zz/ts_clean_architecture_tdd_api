@@ -1,3 +1,4 @@
+import { IAddAccountDTO } from '../../domain/useCases/addAccount';
 import { IHttpResponse } from '../contracts/IHttp';
 import { MissingParamError, ServerError } from '../errors';
 
@@ -12,3 +13,8 @@ export const serverError = (): IHttpResponse => {
     body: new ServerError()
   };
 };
+
+export const sucess = (data: IAddAccountDTO): IHttpResponse => ({
+  statusCode: 200,
+  body: data
+});

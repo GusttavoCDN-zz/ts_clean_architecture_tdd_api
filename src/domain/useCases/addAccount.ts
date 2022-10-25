@@ -7,5 +7,5 @@ export interface IAddAccountDTO {
 }
 
 export interface IAddAccount {
-  add: (account: IAddAccountDTO) => IAccount
+  add: (account: IAddAccountDTO) => Promise<IAccount>
 }

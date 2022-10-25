@@ -1,7 +1,6 @@
-import { IAddAccount } from '../../domain/useCases/addAccount';
-import { IController, IEmailValidator, IHttpRequest, IHttpResponse } from '../contracts';
-import { InvalidParamError, MissingParamError } from '../errors';
-import { badRequest, serverError } from '../helpers/http.helpers';
+import { InvalidParamError, MissingParamError } from '../../errors';
+import { badRequest, serverError, sucess } from '../../helpers/http.helpers';
+import { IAddAccount, IController, IEmailValidator, IHttpRequest, IHttpResponse } from './signup.contracts';
 
 export class SignUpController implements IController {
   private readonly _emailValidator: IEmailValidator;
@@ -12,7 +11,7 @@ export class SignUpController implements IController {
     this._addAccount = addAccount;
   }
 
-  public handle(httpRequest: IHttpRequest): IHttpResponse {
+  public async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
     try {
       const requiredFields = ['name', 'email', 'password', 'passwordConfirmation'];
 
@@ -30,12 +29,9 @@ export class SignUpController implements IController {
 
       if (!isEmailValid) return badRequest(new InvalidParamError('email'));
 
-      this._addAccount.add({ email, name, password });
+      const account = await this._addAccount.add({ email, name, password });
 
-      return {
-        statusCode: 200,
-        body: {}
-      };
+      return sucess(account);
     } catch (error: any) {
       return serverError();
     }
