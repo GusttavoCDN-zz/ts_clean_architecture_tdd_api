@@ -1,6 +1,4 @@
-import { IAccount } from '../../../domain/entities/Account';
-import { IAddAccount, IAddAccountDTO } from '../../../domain/useCases/addAccount';
-import { IEncrypter } from '../../contracts/IEncrypter';
+import { IAddAccount, IEncrypter, IAddAccountDTO, IAccount } from './db-add-account.contracts';
 
 export class DbAddAccount implements IAddAccount {
   constructor(private readonly _encrypter: IEncrypter) {}

@@ -1,4 +1,4 @@
-import { IEncrypter } from '../../contracts/IEncrypter';
+import { IEncrypter } from './db-add-account.contracts';
 import { DbAddAccount } from './DbAddAccount';
 
 interface SutTypes {
