@@ -9,6 +9,11 @@ const config: Config = {
   testEnvironment: 'node',
   preset: 'ts-jest',
   roots: ['<rootDir>/src'],
+  coveragePathIgnorePatterns: [
+    '<rootDir>/src/presentation/contracts',
+    '.contracts.ts',
+    "domain"
+  ],
 };
 
 export default config;
