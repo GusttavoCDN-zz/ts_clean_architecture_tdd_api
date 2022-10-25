@@ -1,4 +1,6 @@
-export default {
+import type { Config } from 'jest';
+
+const config: Config = {
   clearMocks: true,
   collectCoverage: true,
   coverageDirectory: 'coverage',
@@ -8,3 +10,5 @@ export default {
   preset: 'ts-jest',
   roots: ['<rootDir>/src'],
 };
+
+export default config;

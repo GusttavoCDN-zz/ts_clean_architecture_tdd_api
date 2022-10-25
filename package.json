@@ -14,8 +14,12 @@
   "scripts": {
     "prepare": "husky install",
     "c": "git add . --all && yarn cz",
-    "test": "jest --watchAll",
-    "test:staged": "jest --passWithNoTests"
+    "test": "jest --passWithNoTests --silent --runInBand",
+    "test:verbose": "jest --passWithNoTests --runInBand",
+    "test:unit": "yarn test --watchAll -c jest-unit.config.ts",
+    "test:integration": "yarn test --watchAll -c jest-integration.config.ts",
+    "test:staged": "yarn test --bail --findRelatedTests",
+    "test:ci": "yarn test --coverage"
   },
   "devDependencies": {
     "@types/jest": "^29.2.0",
