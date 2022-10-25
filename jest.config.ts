@@ -10,7 +10,7 @@ const config: Config = {
   preset: 'ts-jest',
   roots: ['<rootDir>/src'],
   coveragePathIgnorePatterns: [
-    '<rootDir>/src/presentation/contracts',
+    'contracts',
     '.contracts.ts',
     "domain"
   ],
