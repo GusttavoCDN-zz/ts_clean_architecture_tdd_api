@@ -7,7 +7,10 @@ const config: Config = {
   coverageProvider: 'v8',
   collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
   testEnvironment: 'node',
-  preset: 'ts-jest',
+  preset: '@shelf/jest-mongodb',
+  transform: {
+    '.+\\.ts$': 'ts-jest',
+  },
   roots: ['<rootDir>/src'],
   coveragePathIgnorePatterns: [
     'contracts',
