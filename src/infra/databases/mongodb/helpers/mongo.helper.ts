@@ -1,4 +1,4 @@
-import { MongoClient, MongoClientOptions } from 'mongodb';
+import { Collection, MongoClient, MongoClientOptions } from 'mongodb';
 
 interface CustomMongoClientOptions extends MongoClientOptions {
   useNewUrlParser: boolean
@@ -18,5 +18,9 @@ export const MongoHelper = {
   async disconnect(): Promise<void> {
     await this.client?.close();
     this.client = null;
+  },
+
+  getCollection (name: string): Collection {
+    return this.client?.db().collection(name) as Collection;
   }
 };
