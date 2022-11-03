@@ -18,7 +18,7 @@
     "test": "jest --passWithNoTests --silent --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "yarn test --watchAll -c jest-unit.config.ts",
-    "test:integration": "yarn test --watchAll -c jest-integration.config.ts",
+    "test:integration": "jest --passWithNoTests --runInBand --watchAll -c jest-integration.config.ts",
     "test:staged": "yarn test --bail --findRelatedTests",
     "test:ci": "yarn test --coverage"
   },
