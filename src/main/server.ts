@@ -1,5 +1,10 @@
 import app from './config/app';
+import { MongoHelper } from '../infra/databases/mongodb/helpers/mongo.helper';
+import env from './config/env';
 
-const port = Number(process.env.PORT) || 3000;
-
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+MongoHelper.connect(env.mongoUrl)
+  .then(() => {
+    console.log(env);
+    app.listen(env.port, () => console.log(`Listening on port ${env.port}...`));
+  })
+  .catch(console.error);
