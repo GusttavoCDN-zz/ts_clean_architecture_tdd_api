@@ -5,7 +5,7 @@ const config: Config = {
   collectCoverage: true,
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
-  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+  collectCoverageFrom: ['<rootDir>/src/**/*.ts', '!<rootDir>/src/main/**'],
   testEnvironment: 'node',
   preset: '@shelf/jest-mongodb',
   transform: {
@@ -15,7 +15,9 @@ const config: Config = {
   coveragePathIgnorePatterns: [
     'contracts',
     '.contracts.ts',
-    "domain"
+    'domain',
+    '.spec.ts',
+    '.test.ts',
   ],
 };
 

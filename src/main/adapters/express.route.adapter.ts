@@ -9,6 +9,6 @@ export const adaptRoute = (controller: IController) => {
     };
 
     const httpResponse: IHttpResponse = await controller.handle(httpRequest);
-    return res.status(httpResponse.statusCode).json(httpResponse.body);
+    res.status(httpResponse.statusCode).json(httpResponse.body);
   };
 };
