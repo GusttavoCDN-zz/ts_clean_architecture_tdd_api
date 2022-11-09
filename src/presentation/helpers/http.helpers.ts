@@ -7,10 +7,10 @@ export const badRequest = (error: MissingParamError): IHttpResponse => ({
   body: error
 });
 
-export const serverError = (): IHttpResponse => {
+export const serverError = (error: Error): IHttpResponse => {
   return {
     statusCode: 500,
-    body: new ServerError()
+    body: new ServerError(error.stack as string)
   };
 };
 
