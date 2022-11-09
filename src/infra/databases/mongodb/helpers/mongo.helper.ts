@@ -1,26 +1,21 @@
-import { Collection, MongoClient, MongoClientOptions } from 'mongodb';
-
-interface CustomMongoClientOptions extends MongoClientOptions {
-  useNewUrlParser: boolean
-  useUnifiedTopology: boolean
-}
+import { Collection, MongoClient } from 'mongodb';
 
 export const MongoHelper = {
   client: null as unknown as MongoClient | null,
+  uri: null as unknown as string,
 
   async connect(uri: string): Promise<void> {
-    this.client = await MongoClient.connect(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    } as CustomMongoClientOptions);
+    this.uri = uri;
+    this.client = await MongoClient.connect(uri);
   },
 
   async disconnect(): Promise<void> {
-    await this.client?.close();
     this.client = null;
   },
 
-  getCollection (name: string): Collection {
+  async getCollection(name: string): Promise<Collection> {
+    // TODO - Verify how to verify properly if the client is connected
+    if (!this.client) await this.connect(this.uri);
     return this.client?.db().collection(name) as Collection;
   }
 };

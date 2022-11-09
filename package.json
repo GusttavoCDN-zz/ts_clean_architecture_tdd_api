@@ -7,8 +7,7 @@
   "lint-staged": {
     "*.ts": [
       "eslint --fix --ext .ts",
-      "yarn test:staged",
-      "git add"
+      "yarn test:staged"
     ]
   },
   "scripts": {
@@ -16,11 +15,11 @@
     "dev": "nodemon --exec ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/main/server.ts",
     "prepare": "husky install",
     "c": "git add . --all && yarn cz",
-    "test": "jest --passWithNoTests --silent --runInBand",
+    "test": "jest --passWithNoTests --silent --runInBand --no-cache",
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "yarn test --watchAll -c jest-unit.config.ts",
     "test:integration": "jest --passWithNoTests --runInBand --watchAll -c jest-integration.config.ts",
-    "test:staged": "yarn test --bail --findRelatedTests",
+    "test:staged": "jest --passWithNoTests --silent --runInBand --no-cache --bail",
     "test:ci": "yarn test --coverage"
   },
   "devDependencies": {
